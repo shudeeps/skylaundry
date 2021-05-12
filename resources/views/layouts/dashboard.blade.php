@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset('lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
   <!-- Date Picker -->
   <link rel="stylesheet" href="{{ asset('lte/plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ asset('lte/plugins/datatables/dataTables.bootstrap.css') }}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('lte/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- bootstrap wysihtml5 - text editor -->
@@ -54,6 +55,7 @@
 
  
 </div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
@@ -81,6 +83,8 @@
 <script src="{{ asset('lte/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ asset('lte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('lte/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{{ asset('lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <!-- Slimscroll -->

@@ -69,7 +69,7 @@ class HomeController extends Controller
                 $orderCount = Order::where('driverId_FK','=',Auth::user()->id)
                 ->where('orders.collected_status', '=', 1)
                 ->count();
-               return view('driver.index',compact('Orders','orderCount'));
+               return view('driver.driverMainpage',compact('Orders','orderCount'));
                 break;
             default:   
             
