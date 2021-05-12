@@ -1,11 +1,53 @@
+@extends('driver.mainLayout')
 
-<div class="col-md-11"  id="driver_dashboard">
+@section('content')
+  
 
-          
-         <table id="driverDashboardTable" class="table table-hover table-striped table-bordered">
-             <thead>
-               <tr class="table-primary"> 
-                 <th scope="col">Order Id</th>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+        <li>Driver</li>
+      </ol>
+    </section>
+    @if(Session::has('success'))
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+          <div class="alert alert-success" role="alert"  id="success-alert">
+              {{Session::get('success')}}
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        setTimeout(function () {  
+          // Closing the alert
+          $('#success-alert').alert('close');
+        }, 2000);
+        </script>
+       @endif
+  
+    <!-- Main content mehere-->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Driver Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="driverDashboardTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                <th scope="col">Order Id</th>
                  <th>Customer Name</th>
                  <th>Phone Number</th>
                  <th scope="col">Delivery Date</th>
@@ -13,25 +55,10 @@
                  <th scope="col">Location</th>
                  <th scope="col">Status</th>
                  <th>Change Status</th>
- 
-               </tr>
-             </thead>
-             <tbody>
-             @if (count($Orders)=='0')
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>No Record</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  @endif
-
-
-             @foreach ($Orders as $order)
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($Orders as $order)
                <tr id={{$order->orderId}}>
                  <td scope="row">{{$order->orderId}}</td>
                  <td>{{$order->name}}</td>
@@ -66,32 +93,30 @@
                </tr>
 
                @endforeach
+              
                 
-             </tbody>
-           </table>
-           <div style="float:right;">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-              </ul>
-            </nav>
-           </div>
-           <div style="min-height:100px"></div>
-         </div>
-
+                </tbody>
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
         </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+@endsection
+
 
 
      
 <script type="text/javascript">
 
- $(function () {
-    $("#driverDashboardTable").DataTable();
-  });
+
 function changeStatusByDriver(sel,orderId)
 {
  
