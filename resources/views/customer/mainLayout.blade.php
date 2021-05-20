@@ -47,9 +47,9 @@
     <!-- Logo1 -->
     <a  class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Sky Laundry | Driver</b></span>
+      <span class="logo-mini"><b>Sky Laundry | User</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Sky Laundry | Driver</b></span>
+      <span class="logo-lg"><b>Sky Laundry | User</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -159,7 +159,7 @@
                 <img src="{{url('lte/dist/img/avatar5.png')}}" class="img-circle" alt="User Image"> 
 
                 <p>
-                  {{ Auth::user()->name }} - Driver
+                  {{ Auth::user()->name }} - Customer
                 
                 </p>
               </li>
@@ -219,28 +219,15 @@
           </a>
           
         </li>
-        <li class="treeview">
-          <a href={{ route('driver.myAddedlist') }}>
-            <i class="fa fa-list-ul"></i>
-             <span>    My Added List   </span>
+        <li class="treeview" onclick="myFunction_newOrder(this)">
+          <a href="#">
+            <i class="fa fa-plus"></i> <span>New Order</span>
             <span class="pull-right-container">
-          
-            <i class="fa fa-angle-right pull-right"></i>
+              <i class="fa fa-angle-right pull-right"></i>
             </span>
           </a>
           
-        </li>       
-        <li class="treeview">
-          <a href={{ route('driver.myReturnlist') }}>
-            <i class="fa fa-list-ul"></i>
-             <span>    My return List   </span>
-            <span class="pull-right-container">
-            
-            <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          
-        </li>   
+        </li> 
       
        
       

@@ -24,9 +24,7 @@
         <div class="col-xs-12">
 
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Driver Details</h3>
-            </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
             <table id="driverDashboardTable" class="table table-hover table-striped table-bordered">
