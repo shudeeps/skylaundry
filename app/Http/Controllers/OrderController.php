@@ -70,6 +70,20 @@ class orderController extends Controller
    }
 
 
+   public function driveReturnedChangeStatus(Request $request){
+      $data = $request->all();     
+      $orderId=$data['orderId'];
+      $value=$data['value'];
+      $response=Order::where('id', $orderId)      
+      ->update(['cleaned_status' => $value,'cleanerId_FK'=>Auth::user()->id]);
+    
+   
+   return response()->json(['success'=>'Request changed successfully']);
+      
+   }
+
+
+
    public function driverAddedlist(){
   
       $Orders = Order::where('driverId_FK','=',Auth::user()->id)     

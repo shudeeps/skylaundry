@@ -24,10 +24,7 @@
       <div class="col-xs-12">
 
         <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Driver Details</h3>
-          </div>
-          <!-- /.box-header -->
+                    <!-- /.box-header -->
           <div class="box-body">
             <table id="driverDashboardTable" class="table table-hover table-striped table-bordered">
               <thead>
@@ -100,7 +97,7 @@
     let _token = $('meta[name="csrf-token"]').attr('content');
 
     $.ajax({
-      url: "/driver/driverChangeStatus",
+      url: "/driver/driveReturnedChangeStatus",
       type: "POST",
       data: {
         value: selectedValue,

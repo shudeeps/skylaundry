@@ -25,6 +25,9 @@ Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
 Route::post('/driver/driverChangeStatus', 'OrderController@driverChangeStatus')->name('driver.driverChangeStatus');
 
+Route::post('/driver/driveReturnedChangeStatus', 'OrderController@driveReturnedChangeStatus')->name('driver.driveReturnedChangeStatus');
+
+
 Route::post('/cleaner/cleanerChangeStatus', 'OrderController@cleanerChangeStatus')->name('cleaner.cleanerChangeStatus');
 
 Route::get('/driver/myAddedlist', 'OrderController@driverAddedlist')->name('driver.myAddedlist');

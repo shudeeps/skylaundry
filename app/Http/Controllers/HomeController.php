@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Auth;
 use App\Order;
@@ -34,7 +33,7 @@ class HomeController extends Controller
 
             //cleaner
             case '1':
-                $location=Auth::user()->location;   
+                $location=Auth::user()->location;  
                 $Orders = DB::table('orders')
                 ->distinct()
                 ->select('orders.*','users.*','orders.id as orderId')
@@ -48,9 +47,11 @@ class HomeController extends Controller
                 ->orwhere('orders.cleaned_status', '=', '1')
                 ->get();
 
-                   //  dd($Orders);
-
-                     return view('cleaner.index',compact('Orders'));
+                    //  dd($Orders);
+            $orderCount = Order::where('driverId_FK','=',Auth::user()->id)
+            ->where('orders.collected_status', '=', 1)
+            ->count();
+                     return view('cleaner.cleanerMainPage',compact('Orders','orderCount'));
                 break;
             case '2':
                 // driver  test
@@ -80,7 +81,7 @@ class HomeController extends Controller
             // $userId=Auth::user()->id;
             // $Orders = Order::where('user_id',$userId)->orderBy('id', 'DESC')->get();  
           //  dd($Orders);
-                return view('customer.index',compact('Orders'));
+                return view('customer.customerMainPage',compact('Orders'));
                 break;
         }
 
