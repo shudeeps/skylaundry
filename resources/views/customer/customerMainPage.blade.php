@@ -62,16 +62,23 @@
                         <td scope="row">{{$order['pickUpDate']}}</td>
                         <td scope="row">{{$order['pickUpTime']}}</td>
                         <td>
+                     <?php 
+                       $orderDetail=array();
+                        array_push($orderDetail,$order['collected_status']);
+                        array_push($orderDetail,$order['cleaned_status']);
+                        array_push($orderDetail,$order['returned_status']);
+                        //dd($orderDetail);
+                        $comma_separated = implode(",", $orderDetail);       
+                        //dd($comma_separated);             
+                      
+                      ?>
 
-                        @if ($order['cleaned_status']==0)
-                        Not Cleaned
-                        @elseif ($order['cleaned_status']==1)      
-                        Active
-                        @elseif ($order['cleaned_status']==2)  
-                        completed  
-                        @endif
-
-
+                     <button id="{{$order['id']}}" rel={{$comma_separated}} class="btn btn-info "  
+                  
+                     onClick="viewOrderDetailClick(this.id)">
+                     <i class="fa fa-eye"></i>
+                     Click me</button>
+                    
                         </td>
                         <td id="{{$order['id']}}" class='customerPaidStatusClass'>
                     @if ($order['paid']=='1')
@@ -81,7 +88,7 @@
                     @endif
                     </td>
                     <td>
-                    <button id="{{$order['id']}}" class="btn btn-success "  onClick="payOrderClick(this.id)"
+                    <button id="{{$order['id']}}"  class="btn btn-success "  onClick="payOrderClick(this.id)"
                     {{ $order['paid']?  'disabled' : '' }}
                     
                     >{{ $order['paid']?  'paid' : 'pay here' }}</button>
@@ -114,8 +121,96 @@
 
 @endsection
 
+<style>
+.vlG {
+  border-left: 6px solid green;
+  height: 90px;
+  position: relative;
+  left: 10%;
+  margin: 50px 5px;
+  top: 0;
+}
+
+.vlR {
+  border-left: 6px solid red;
+  height: 90px;
+  position: relative;
+  left: 10%;
+  margin: 50px 5px;
+  top: 0;
+}
+
+/* active class for line */
+
+.vlI{  
+  border-left: 6px solid #31708f;
+  height: 90px;
+  position: relative;
+  left: 10%;
+  margin: 50px 5px;
+  top: 0;
+}
+.modal-body h2{
+  margin:30px 21px;
+  color: darkorchid;
+}
+.modal-body i{
+  margin:-45px 0px -32px -20px;  
+}
+.lightGray{
+  color:lightgray;
+}
+.lastIcon{
+  margin:0px 0px 5px 68px;
+}
+</style>
+<!-- Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Order Status</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+   
+      <div class="vlR" id="driver">
+      <i class="fa fa-hourglass-start fa-3x text-success "></i>      
+      <h2>Driver Not pick   </h2>      
+      </div>
 
 
+      <div class="vlR" id="cleaner">
+      <i class="fa fa-check-circle fa-3x lightGray"></i>     
+      <h2>Cleaner Not assigned</h2>
+      
+      </div>
+
+      <div class="vlR" id="returnDriver">
+      <i class="fa fa-check-circle fa-3x lightGray"></i>
+
+      <!-- <i class="fa fa-refresh fa-spin fa-3x fa-fw text-dark"></i> -->
+      <h2>Returned driver Not assigned</h2>
+      </div>
+
+
+      <div class="lastIcon">
+      <i class="fa fa-check-circle fa-3x lightGray"></i>
+          
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      
+      </div>
+      
+    </div>
+  </div>
+</div>
 
      
 <script type="text/javascript">
@@ -145,6 +240,89 @@ function myFunction_driverDashboard(elem) {
 
   
 }
+function viewOrderDetailClick(clicked){
+
+statusValue= $("#customerDashboard tbody tr").find("td button#"+clicked).attr('rel');
+$("#statusModal").modal('show');
+//  console.log(statusValue);
+//  console.log(statusValue[0]);
+//  console.log(statusValue[2]);
+//  console.log(statusValue[4]);
+
+
+//collected by driver
+switch (statusValue[0]) {
+  case '0':
+    text = "Driver Not assigned ";
+    $("#statusModal .modal-body #cleaner i").removeClass('fa-refresh fa-spin text-info text-success').addClass('fa-check-circle lightGray'); 
+    $("#statusModal .modal-body #driver").removeClass('vlI vlG').addClass('vlR');
+     break;
+  case '1':
+    text = "Driver is on the way";
+    $("#statusModal .modal-body #cleaner i").removeClass('fa-check-circle lightGray text-success').addClass('fa-refresh fa-spin text-info');
+    $("#statusModal .modal-body #driver").removeClass('vlR vlG').addClass('vlI');
+    break;
+  default:
+    text = "Driver droped to cleaner";
+    $("#statusModal .modal-body #cleaner i").removeClass('fa-refresh fa-spin text-info lightGray').addClass('fa-check-circle text-success'); 
+    $("#statusModal .modal-body #driver").removeClass('vlR vlI').addClass('vlG');
+
+}
+console.log(text);
+$("#statusModal .modal-body #driver h2").html(text);
+
+
+
+
+//cleaner status
+switch (statusValue[2]) {
+  case '0':
+    text = "Cleaner not assigned";
+    $("#statusModal .modal-body #returnDriver i").removeClass('fa-refresh fa-spin text-info text-success').addClass('fa-check-circle lightGray'); 
+     $("#statusModal .modal-body #cleaner").removeClass('vlI vlG').addClass('vlR');
+    
+    break;
+  case '1':
+    text = "cleaning";
+    $("#statusModal .modal-body #returnDriver i").removeClass('fa-check-circle lightGray text-success').addClass('fa-refresh fa-spin text-info');
+    $("#statusModal .modal-body #cleaner").removeClass('vlR vlG').addClass('vlI');
+
+    break;
+  default:
+    text = "cleaning is done";
+    $("#statusModal .modal-body #returnDriver i").removeClass('fa-refresh fa-spin text-info lightGray').addClass('fa-check-circle text-success'); 
+    $("#statusModal .modal-body #cleaner").removeClass('vlR vlI').addClass('vlG');
+}
+console.log(text);
+$("#statusModal .modal-body #cleaner h2").html(text);
+
+
+
+//returned status by driver
+switch (statusValue[4]) {
+  case '0':
+    text = "Returned Driver not Assigned";
+    $("#statusModal .modal-body .lastIcon i").removeClass('fa-refresh fa-spin text-info text-success').addClass('fa-check-circle lightGray'); 
+    $("#statusModal .modal-body #returnDriver").removeClass('vlI vlG').addClass('vlR');
+    
+    break;
+  case '1':
+    text = "Driver is on the way to return";
+    $("#statusModal .modal-body .lastIcon i").removeClass('fa-check-circle lightGray text-success').addClass('fa-refresh fa-spin text-info');
+    $("#statusModal .modal-body #returnDriver").removeClass('vlR vlG').addClass('vlI');
+   break;
+  default:
+    text = "Driver returned to customer";
+    $("#statusModal .modal-body .lastIcon i").removeClass('fa-refresh fa-spin text-info lightGray').addClass('fa-check-circle text-success'); 
+    $("#statusModal .modal-body #returnDriver").removeClass('vlR vlI').addClass('vlG');
+  }
+console.log(text);
+$("#statusModal .modal-body #returnDriver h2").html(text);
+
+
+}
+
+
 
 
 function payOrderClick(clicked) {
