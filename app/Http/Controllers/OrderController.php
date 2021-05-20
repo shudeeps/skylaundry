@@ -75,7 +75,7 @@ class orderController extends Controller
       $orderId=$data['orderId'];
       $value=$data['value'];
       $response=Order::where('id', $orderId)      
-      ->update(['cleaned_status' => $value,'cleanerId_FK'=>Auth::user()->id]);
+      ->update(['returned_status' => $value,'cleanerId_FK'=>Auth::user()->id]);
     
    
    return response()->json(['success'=>'Request changed successfully']);
