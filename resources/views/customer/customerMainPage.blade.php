@@ -67,7 +67,7 @@
                         array_push($orderDetail,$order['collected_status']);
                         array_push($orderDetail,$order['cleaned_status']);
                         array_push($orderDetail,$order['returned_status']);
-                        //dd($orderDetail);
+                        //dd($orderDetail); chage array into string
                         $comma_separated = implode(",", $orderDetail);       
                         //dd($comma_separated);             
                       
@@ -165,7 +165,7 @@
 }
 </style>
 <!-- Modal -->
-<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" style="display:none" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

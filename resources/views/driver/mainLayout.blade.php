@@ -222,7 +222,7 @@
         <li class="treeview">
           <a href={{ route('driver.myAddedlist') }}>
             <i class="fa fa-list-ul"></i>
-             <span>    My Added List   </span>
+             <span>    collection to be made   </span>
             <span class="pull-right-container">
           
             <i class="fa fa-angle-right pull-right"></i>
