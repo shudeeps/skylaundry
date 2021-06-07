@@ -1,11 +1,13 @@
+<!-- imported the master layout in customer page -->
 @extends('customer.mainLayout')
 
+<!-- include the main content  -->
 @section('content')
   
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header) shows the status of current page -->
     <section class="content-header">
       <h1>
         Dashboard
@@ -17,6 +19,8 @@
         <li>Customer</li>
       </ol>
     </section>
+
+    <!-- pop up for successful message -->
     @if(Session::has('success'))
         <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
@@ -33,7 +37,7 @@
         </script>
        @endif
   
-    <!-- Main content mehere-->
+    <!-- Main content mehere which includes the table which is created using datatable -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -67,8 +71,9 @@
                         array_push($orderDetail,$order['collected_status']);
                         array_push($orderDetail,$order['cleaned_status']);
                         array_push($orderDetail,$order['returned_status']);
-                        //dd($orderDetail); chage array into string
-                        $comma_separated = implode(",", $orderDetail);       
+                        //dd($orderDetail); change array into string
+                        $comma_separated = implode(",", $orderDetail);  
+                             
                         //dd($comma_separated);             
                       
                       ?>
@@ -121,7 +126,10 @@
 
 @endsection
 
+
+<!-- style for order status pop up -->
 <style>
+/* Green vertical line */
 .vlG {
   border-left: 6px solid green;
   height: 90px;
@@ -130,7 +138,7 @@
   margin: 50px 5px;
   top: 0;
 }
-
+/* red vertical line */
 .vlR {
   border-left: 6px solid red;
   height: 90px;
@@ -141,7 +149,7 @@
 }
 
 /* active class for line */
-
+/* blue (bootstrap info ) vertical line */
 .vlI{  
   border-left: 6px solid #31708f;
   height: 90px;
@@ -164,6 +172,8 @@
   margin:0px 0px 5px 68px;
 }
 </style>
+
+<!-- order status module pop up using bootstrap -->
 <!-- Modal -->
 <div class="modal fade" style="display:none" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -240,8 +250,9 @@ function myFunction_driverDashboard(elem) {
 
   
 }
-function viewOrderDetailClick(clicked){
 
+//order detail ajax call and pop up bootstap module
+function viewOrderDetailClick(clicked){
 statusValue= $("#customerDashboard tbody tr").find("td button#"+clicked).attr('rel');
 $("#statusModal").modal('show');
 //  console.log(statusValue);
@@ -323,8 +334,7 @@ $("#statusModal .modal-body #returnDriver h2").html(text);
 }
 
 
-
-
+//change the pay order status into paid  
 function payOrderClick(clicked) {
 
 
