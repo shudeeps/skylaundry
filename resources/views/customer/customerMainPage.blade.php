@@ -1,3 +1,7 @@
+<!-- Sky laundry is online management for laundry process
+Here in this page customer can make order and options to pay at front via AJAX call.
+And can view the status of his applicaiton wheather it is progress or done . 
+-->
 <!-- imported the master layout in customer page -->
 @extends('customer.mainLayout')
 
